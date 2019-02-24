@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<litepal>
+    <dbname value="OneData" />
+    <version value="5" />
+    <list>
+        <mapping class="pow.jie.oneforall.db.ContentItem" />
+        <mapping class="pow.jie.oneforall.db.Essay" />
+        <mapping class="pow.jie.oneforall.db.Question" />
+        <mapping class="pow.jie.oneforall.db.SerialContent" />
+    </list>
+</litepal>
