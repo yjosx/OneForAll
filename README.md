@@ -3,20 +3,25 @@
 one一个是一个文艺应用软件，其中的文章都很小清新，应该会很符合很多朋友的兴趣。
 
 ## 0x01 实现功能
-
-[image]
+![main] https://github.com/yjosx/OneForAll/blob/master/screenshoots/Screenshot_1550974397.png
 
 - 主页是每日更新的阅读
 
-[image]
+![nivagation] https://github.com/yjosx/OneForAll/blob/master/screenshoots/Screenshot_1550974500.png
 
-- 
+- 侧滑栏
+
+![reading]https://github.com/yjosx/OneForAll/blob/master/screenshoots/Screenshot_1550974514.png 
+
+- 阅读
 
 ## 0x02 动图演示
 
-[image]
+![image] https://github.com/yjosx/OneForAll/blob/master/screenshoots/TIM%E5%9B%BE%E7%89%8720190224110437.gif
 
-[image]
+![image] https://github.com/yjosx/OneForAll/blob/master/screenshoots/TIM%E5%9B%BE%E7%89%8720190224110447.gif
+
+![image] https://github.com/yjosx/OneForAll/blob/master/screenshoots/TIM%E5%9B%BE%E7%89%8720190224110453.gif
 
 ##0x03  实现细节
 
