@@ -1,8 +1,8 @@
-package pow.jie.oneforall.gson;
+package pow.jie.oneforall.databean;
 
 import java.util.List;
 
-public class ContentItemGson {
+public class ContentItemBean {
 
     private int res;
     private DataBean data;

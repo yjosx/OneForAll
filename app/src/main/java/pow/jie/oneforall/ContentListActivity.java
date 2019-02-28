@@ -21,7 +21,7 @@ import okhttp3.Callback;
 import okhttp3.Response;
 import pow.jie.oneforall.adapter.ContentListAdapter;
 import pow.jie.oneforall.db.ContentItem;
-import pow.jie.oneforall.gson.ContentListGson;
+import pow.jie.oneforall.databean.ContentListBean;
 import pow.jie.oneforall.util.BaseActivity;
 import pow.jie.oneforall.util.EndlessRecyclerOnScrollListener;
 import pow.jie.oneforall.util.OkHttpUtil;
@@ -62,8 +62,8 @@ public class ContentListActivity extends BaseActivity {
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 if (response.body() != null) {
                     String responseText = response.body().string();
-                    ContentListGson gson = new Gson().fromJson(responseText, ContentListGson.class);
-                    readGson(gson);
+                    ContentListBean bean = new Gson().fromJson(responseText, ContentListBean.class);
+                    readBean(bean);
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -122,8 +122,8 @@ public class ContentListActivity extends BaseActivity {
         }
     }
 
-    public void readGson(ContentListGson gson) {
-        List<ContentListGson.DataBean> list = gson.getData();
+    public void readBean(ContentListBean bean) {
+        List<ContentListBean.DataBean> list =bean.getData();
         for (int i = 0; i < 10; i++) {
             ContentItem contentItem = new ContentItem();
 

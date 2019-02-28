@@ -1,6 +1,6 @@
-package pow.jie.oneforall.gson;
+package pow.jie.oneforall.databean;
 
-public class WhetherGson {
+public class WhetherBean {
     private DataBean data;
 
     public DataBean getData() {

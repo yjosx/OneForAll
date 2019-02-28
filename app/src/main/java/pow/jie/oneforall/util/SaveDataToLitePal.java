@@ -10,17 +10,17 @@ import pow.jie.oneforall.db.ContentItem;
 import pow.jie.oneforall.db.Essay;
 import pow.jie.oneforall.db.Question;
 import pow.jie.oneforall.db.SerialContent;
-import pow.jie.oneforall.gson.ContentItemGson;
-import pow.jie.oneforall.gson.EssayGson;
-import pow.jie.oneforall.gson.QuestionGson;
-import pow.jie.oneforall.gson.SerialContentGson;
+import pow.jie.oneforall.databean.ContentItemBean;
+import pow.jie.oneforall.databean.EssayBean;
+import pow.jie.oneforall.databean.QuestionBean;
+import pow.jie.oneforall.databean.SerialContentBean;
 
 public class SaveDataToLitePal {
-    public static void SaveToContentList(ContentItemGson contentItemGson) {
+    public static void SaveToContentList(ContentItemBean contentItemBean) {
 
         int lastVol = 0;
         //将ContentListBean获取为list
-        List<ContentItemGson.DataBean.ContentListBean> list = contentItemGson.getData().getContent_list();
+        List<ContentItemBean.DataBean.ContentListBean> list = contentItemBean.getData().getContent_list();
 
         for (int i = 0; i < list.size(); i++) {
             ContentItem contentItem = new ContentItem();
@@ -33,7 +33,7 @@ public class SaveDataToLitePal {
             contentItem.setContent(list.get(i).getContent_id());
             contentItem.setTitle(list.get(i).getTitle());
             contentItem.setVolume(list.get(0).getVolume());
-            contentItem.setIdListId(Integer.parseInt(contentItemGson.getData().getId()));
+            contentItem.setIdListId(Integer.parseInt(contentItemBean.getData().getId()));
             //以下是volume字符串获取为纯数字
             StringBuilder numStr = new StringBuilder();
             for (char each : list.get(0).getVolume().toCharArray()) {
@@ -87,29 +87,29 @@ public class SaveDataToLitePal {
         LitePal.deleteAll(ContentItem.class, "volumeNum < ?", String.valueOf(lastVol));
     }
 
-    public static void SaveToEssay(EssayGson essayGson) {
+    public static void SaveToEssay(EssayBean essayBean) {
         Essay essay = new Essay();
-        essay.setTitle(essayGson.getData().getHp_title());
-        essay.setAuthorAuth(essayGson.getData().getAuth_it());
-        essay.setAuthor(essayGson.getData().getHp_author());
-        essay.setGuideWord(essayGson.getData().getGuide_word());
-        essay.setContent(essayGson.getData().getHp_content());
+        essay.setTitle(essayBean.getData().getHp_title());
+        essay.setAuthorAuth(essayBean.getData().getAuth_it());
+        essay.setAuthor(essayBean.getData().getHp_author());
+        essay.setGuideWord(essayBean.getData().getGuide_word());
+        essay.setContent(essayBean.getData().getHp_content());
         essay.save();
     }
 
-    public void SaveToQuestion(QuestionGson questionGson) {
+    public void SaveToQuestion(QuestionBean questionBean) {
         Question question = new Question();
-        question.setQuestionTitle(questionGson.getData().getQuestion_title());
-        question.setQuestionContent(questionGson.getData().getQuestion_content());
-        question.setAnswerContent(questionGson.getData().getAnswer_content());
+        question.setQuestionTitle(questionBean.getData().getQuestion_title());
+        question.setQuestionContent(questionBean.getData().getQuestion_content());
+        question.setAnswerContent(questionBean.getData().getAnswer_content());
         question.save();
     }
 
-    public void SaveToSerialContent(SerialContentGson serialContentGson) {
+    public void SaveToSerialContent(SerialContentBean serialContentBean) {
         SerialContent serialContent = new SerialContent();
-        serialContent.setNumber(serialContentGson.getData().getNumber());
-        serialContent.setTitle(serialContentGson.getData().getTitle());
-        serialContent.setContent(serialContentGson.getData().getContent());
+        serialContent.setNumber(serialContentBean.getData().getNumber());
+        serialContent.setTitle(serialContentBean.getData().getTitle());
+        serialContent.setContent(serialContentBean.getData().getContent());
         serialContent.save();
     }
 }

@@ -1,8 +1,8 @@
-package pow.jie.oneforall.gson;
+package pow.jie.oneforall.databean;
 
 import java.util.List;
 
-public class EssayGson {
+public class SerialContentBean {
 
     private int res;
     private DataBean data;
@@ -25,21 +25,21 @@ public class EssayGson {
 
     public static class DataBean {
 
-        private String content_id;
-        private String hp_title;
-        private String sub_title;
-        private String hp_author;
-        private String auth_it;
-        private String hp_author_introduce;
-        private String hp_content;
-        private String hp_makettime;
-        private String hide_flag;
-        private String wb_name;
-        private String wb_img_url;
+        private String id;
+        private String serial_id;
+        private String number;
+        private String title;
+        private String excerpt;
+        private String content;
+        private String charge_edt;
+        private String read_num;
+        private String maketime;
         private String last_update_date;
-        private String web_url;
-        private String guide_word;
+        private String hide_flag;
         private String audio;
+        private String web_url;
+        private String input_name;
+        private String last_update_name;
         private String anchor;
         private String editor_email;
         private String top_media_type;
@@ -49,102 +49,85 @@ public class EssayGson {
         private String copyright;
         private String audio_duration;
         private String cover;
-        private String maketime;
-        private int next_id;
-        private String previous_id;
+        private AuthorBean author;
+        private String lastid;
+        private String nextid;
         private int praisenum;
         private int sharenum;
         private int commentnum;
-        private List<AuthorBean> author;
         private List<AuthorListBean> author_list;
-        private List<TagListBean> tag_list;
+        private List<?> tag_list;
 
-        public String getContent_id() {
-            return content_id;
+        public String getId() {
+            return id;
         }
 
-        public void setContent_id(String content_id) {
-            this.content_id = content_id;
+        public void setId(String id) {
+            this.id = id;
         }
 
-        public String getHp_title() {
-            return hp_title;
+        public String getSerial_id() {
+            return serial_id;
         }
 
-        public void setHp_title(String hp_title) {
-            this.hp_title = hp_title;
+        public void setSerial_id(String serial_id) {
+            this.serial_id = serial_id;
         }
 
-        public String getSub_title() {
-            return sub_title;
+        public String getNumber() {
+            return number;
         }
 
-        public void setSub_title(String sub_title) {
-            this.sub_title = sub_title;
+        public void setNumber(String number) {
+            this.number = number;
         }
 
-        public String getHp_author() {
-            return hp_author;
+        public String getTitle() {
+            return title;
         }
 
-        public void setHp_author(String hp_author) {
-            this.hp_author = hp_author;
+        public void setTitle(String title) {
+            this.title = title;
         }
 
-        public String getAuth_it() {
-            return auth_it;
+        public String getExcerpt() {
+            return excerpt;
         }
 
-        public void setAuth_it(String auth_it) {
-            this.auth_it = auth_it;
+        public void setExcerpt(String excerpt) {
+            this.excerpt = excerpt;
         }
 
-        public String getHp_author_introduce() {
-            return hp_author_introduce;
+        public String getContent() {
+            return content;
         }
 
-        public void setHp_author_introduce(String hp_author_introduce) {
-            this.hp_author_introduce = hp_author_introduce;
+        public void setContent(String content) {
+            this.content = content;
         }
 
-        public String getHp_content() {
-            return hp_content;
+        public String getCharge_edt() {
+            return charge_edt;
         }
 
-        public void setHp_content(String hp_content) {
-            this.hp_content = hp_content;
+        public void setCharge_edt(String charge_edt) {
+            this.charge_edt = charge_edt;
         }
 
-        public String getHp_makettime() {
-            return hp_makettime;
+        public String getRead_num() {
+            return read_num;
         }
 
-        public void setHp_makettime(String hp_makettime) {
-            this.hp_makettime = hp_makettime;
+        public void setRead_num(String read_num) {
+            this.read_num = read_num;
         }
 
-        public String getHide_flag() {
-            return hide_flag;
+        public String getMaketime() {
+            return maketime;
         }
 
-        public void setHide_flag(String hide_flag) {
-            this.hide_flag = hide_flag;
-        }
-
-        public String getWb_name() {
-            return wb_name;
-        }
-
-        public void setWb_name(String wb_name) {
-            this.wb_name = wb_name;
-        }
-
-        public String getWb_img_url() {
-            return wb_img_url;
-        }
-
-        public void setWb_img_url(String wb_img_url) {
-            this.wb_img_url = wb_img_url;
+        public void setMaketime(String maketime) {
+            this.maketime = maketime;
         }
 
         public String getLast_update_date() {
@@ -155,20 +138,12 @@ public class EssayGson {
             this.last_update_date = last_update_date;
         }
 
-        public String getWeb_url() {
-            return web_url;
+        public String getHide_flag() {
+            return hide_flag;
         }
 
-        public void setWeb_url(String web_url) {
-            this.web_url = web_url;
-        }
-
-        public String getGuide_word() {
-            return guide_word;
-        }
-
-        public void setGuide_word(String guide_word) {
-            this.guide_word = guide_word;
+        public void setHide_flag(String hide_flag) {
+            this.hide_flag = hide_flag;
         }
 
         public String getAudio() {
@@ -177,6 +152,30 @@ public class EssayGson {
 
         public void setAudio(String audio) {
             this.audio = audio;
+        }
+
+        public String getWeb_url() {
+            return web_url;
+        }
+
+        public void setWeb_url(String web_url) {
+            this.web_url = web_url;
+        }
+
+        public String getInput_name() {
+            return input_name;
+        }
+
+        public void setInput_name(String input_name) {
+            this.input_name = input_name;
+        }
+
+        public String getLast_update_name() {
+            return last_update_name;
+        }
+
+        public void setLast_update_name(String last_update_name) {
+            this.last_update_name = last_update_name;
         }
 
         public String getAnchor() {
@@ -251,28 +250,28 @@ public class EssayGson {
             this.cover = cover;
         }
 
-        public String getMaketime() {
-            return maketime;
+        public AuthorBean getAuthor() {
+            return author;
         }
 
-        public void setMaketime(String maketime) {
-            this.maketime = maketime;
+        public void setAuthor(AuthorBean author) {
+            this.author = author;
         }
 
-        public int getNext_id() {
-            return next_id;
+        public String getLastid() {
+            return lastid;
         }
 
-        public void setNext_id(int next_id) {
-            this.next_id = next_id;
+        public void setLastid(String lastid) {
+            this.lastid = lastid;
         }
 
-        public String getPrevious_id() {
-            return previous_id;
+        public String getNextid() {
+            return nextid;
         }
 
-        public void setPrevious_id(String previous_id) {
-            this.previous_id = previous_id;
+        public void setNextid(String nextid) {
+            this.nextid = nextid;
         }
 
         public int getPraisenum() {
@@ -299,14 +298,6 @@ public class EssayGson {
             this.commentnum = commentnum;
         }
 
-        public List<AuthorBean> getAuthor() {
-            return author;
-        }
-
-        public void setAuthor(List<AuthorBean> author) {
-            this.author = author;
-        }
-
         public List<AuthorListBean> getAuthor_list() {
             return author_list;
         }
@@ -315,15 +306,26 @@ public class EssayGson {
             this.author_list = author_list;
         }
 
-        public List<TagListBean> getTag_list() {
+        public List<?> getTag_list() {
             return tag_list;
         }
 
-        public void setTag_list(List<TagListBean> tag_list) {
+        public void setTag_list(List<?> tag_list) {
             this.tag_list = tag_list;
         }
 
         public static class AuthorBean {
+            /**
+             * user_id : 4814706
+             * user_name : 大头马
+             * desc : 编剧，小说作者。公众号：prophetdatouma
+             * wb_name : @大头马
+             * is_settled : 0
+             * settled_type : 0
+             * summary : 编剧，小说作者。
+             * fans_total : 3572
+             * web_url : http://image.wufazhuce.com/FiLEZKk30tI-P2DfODFz9VuL3P50
+             */
 
             private String user_id;
             private String user_name;
@@ -409,6 +411,17 @@ public class EssayGson {
         }
 
         public static class AuthorListBean {
+            /**
+             * user_id : 4814706
+             * user_name : 大头马
+             * desc : 编剧，小说作者。公众号：prophetdatouma
+             * wb_name : @大头马
+             * is_settled : 0
+             * settled_type : 0
+             * summary : 编剧，小说作者。
+             * fans_total : 3572
+             * web_url : http://image.wufazhuce.com/FiLEZKk30tI-P2DfODFz9VuL3P50
+             */
 
             private String user_id;
             private String user_name;
@@ -490,28 +503,6 @@ public class EssayGson {
 
             public void setWeb_url(String web_url) {
                 this.web_url = web_url;
-            }
-        }
-
-        public static class TagListBean {
-
-            private String id;
-            private String title;
-
-            public String getId() {
-                return id;
-            }
-
-            public void setId(String id) {
-                this.id = id;
-            }
-
-            public String getTitle() {
-                return title;
-            }
-
-            public void setTitle(String title) {
-                this.title = title;
             }
         }
     }

@@ -35,7 +35,7 @@ import okhttp3.Callback;
 import okhttp3.Response;
 import pow.jie.oneforall.adapter.MainPageAdapter;
 import pow.jie.oneforall.db.ContentItem;
-import pow.jie.oneforall.gson.ContentItemGson;
+import pow.jie.oneforall.databean.ContentItemBean;
 import pow.jie.oneforall.util.ActivityCollector;
 import pow.jie.oneforall.util.BaseActivity;
 import pow.jie.oneforall.util.EndlessRecyclerOnScrollListener;
@@ -64,8 +64,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        String idlistUrl = "http://v3.wufazhuce.com:8000/api/onelist/idlist";
-        queryIdFromServer(idlistUrl);
+        String idListUrl = "http://v3.wufazhuce.com:8000/api/onelist/idlist";
+        queryIdFromServer(idListUrl);
     }
 
     @Override
@@ -147,7 +147,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 //        } else if (id == R.id.nav_setting) {
         } else if (id == R.id.nav_about) {
             AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
-            dialog.setMessage("复杂的世界里 一个就够了\nOneForAll" + " 0.1alpha");
+            dialog.setMessage("复杂的世界里 一个就够了\nOneForAll" + BuildConfig.VERSION_NAME);
             dialog.setNegativeButton("了解了", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
@@ -226,7 +226,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 if (response.body() != null) {
                     String responseText = response.body().string();
-                    ContentItemGson contentList = new Gson().fromJson(responseText, ContentItemGson.class);
+                    ContentItemBean contentList = new Gson().fromJson(responseText, ContentItemBean.class);
                     LitePal.deleteAll(ContentItem.class);
                     SaveDataToLitePal.SaveToContentList(contentList);
                     final String idListId = contentList.getData().getId();

@@ -17,9 +17,9 @@ import java.io.IOException;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
-import pow.jie.oneforall.gson.EssayGson;
-import pow.jie.oneforall.gson.QuestionGson;
-import pow.jie.oneforall.gson.SerialContentGson;
+import pow.jie.oneforall.databean.EssayBean;
+import pow.jie.oneforall.databean.QuestionBean;
+import pow.jie.oneforall.databean.SerialContentBean;
 import pow.jie.oneforall.util.BaseActivity;
 import pow.jie.oneforall.util.OkHttpUtil;
 
@@ -72,7 +72,7 @@ public class ContentActivity extends BaseActivity {
                     public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                         if (response.body() != null) {
                             final String responseText = response.body().string();
-                            final EssayGson essayGson = new Gson().fromJson(responseText, EssayGson.class);
+                            final EssayBean essayBean = new Gson().fromJson(responseText, EssayBean.class);
 
                             runOnUiThread(new Runnable() {
                                 @Override
@@ -82,13 +82,13 @@ public class ContentActivity extends BaseActivity {
                                     TextView title = findViewById(R.id.tv_content_activity_title);
                                     TextView author = findViewById(R.id.tv_content_activity_author);
 
-                                    textViewToolBar.setText(essayGson.getData().getHp_title());
-                                    title.setText(essayGson.getData().getHp_title());
-                                    if (!essayGson.getData().getHp_author().equals("")) {
-                                        String authorText = "文/" + essayGson.getData().getHp_author() + "\n\n";
+                                    textViewToolBar.setText(essayBean.getData().getHp_title());
+                                    title.setText(essayBean.getData().getHp_title());
+                                    if (!essayBean.getData().getHp_author().equals("")) {
+                                        String authorText = "文/" + essayBean.getData().getHp_author() + "\n\n";
                                         author.setText(authorText);
                                     }
-                                    textView.setText(Html.fromHtml(essayGson.getData().getHp_content()));
+                                    textView.setText(Html.fromHtml(essayBean.getData().getHp_content()));
                                 }
                             });
                         }
@@ -112,7 +112,7 @@ public class ContentActivity extends BaseActivity {
                     public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                         if (response.body() != null) {
                             final String responseText = response.body().string();
-                            final SerialContentGson serialContentGson = new Gson().fromJson(responseText, SerialContentGson.class);
+                            final SerialContentBean serialContentBean = new Gson().fromJson(responseText, SerialContentBean.class);
 
                             runOnUiThread(new Runnable() {
                                 @Override
@@ -123,10 +123,10 @@ public class ContentActivity extends BaseActivity {
                                     TextView author = findViewById(R.id.tv_content_activity_author);
 
                                     textViewToolBar.setText("连载");
-                                    title.setText(serialContentGson.getData().getTitle());
-                                    String authorText = "文/" + serialContentGson.getData().getAuthor().getUser_name() + "\n\n";
+                                    title.setText(serialContentBean.getData().getTitle());
+                                    String authorText = "文/" + serialContentBean.getData().getAuthor().getUser_name() + "\n\n";
                                     author.setText(authorText);
-                                    textView.setText(Html.fromHtml(serialContentGson.getData().getContent()));
+                                    textView.setText(Html.fromHtml(serialContentBean.getData().getContent()));
                                 }
                             });
                         }
@@ -150,7 +150,7 @@ public class ContentActivity extends BaseActivity {
                     public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                         if (response.body() != null) {
                             final String responseText = response.body().string();
-                            final QuestionGson questionGson = new Gson().fromJson(responseText, QuestionGson.class);
+                            final QuestionBean questionBean = new Gson().fromJson(responseText, QuestionBean.class);
 
                             runOnUiThread(new Runnable() {
                                 @Override
@@ -161,8 +161,8 @@ public class ContentActivity extends BaseActivity {
                                     TextView author = findViewById(R.id.tv_content_activity_author);
 
                                     textViewToolBar.setText("问答");
-                                    title.setText(questionGson.getData().getQuestion_title());
-                                    textView.setText(Html.fromHtml(questionGson.getData().getAnswer_content()));
+                                    title.setText(questionBean.getData().getQuestion_title());
+                                    textView.setText(Html.fromHtml(questionBean.getData().getAnswer_content()));
                                 }
                             });
                         }
