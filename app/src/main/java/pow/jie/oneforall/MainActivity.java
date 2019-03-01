@@ -7,46 +7,30 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.PagerSnapHelper;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.litepal.LitePal;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.Response;
-import pow.jie.oneforall.adapter.MainPageAdapter;
+import pow.jie.oneforall.adapter.MainViewPagerAdapter;
 import pow.jie.oneforall.db.ContentItem;
-import pow.jie.oneforall.databean.ContentItemBean;
 import pow.jie.oneforall.util.ActivityCollector;
 import pow.jie.oneforall.util.BaseActivity;
-import pow.jie.oneforall.util.EndlessRecyclerOnScrollListener;
-import pow.jie.oneforall.util.OkHttpUtil;
-import pow.jie.oneforall.util.SaveDataToLitePal;
 
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final String TAG = "MainActivity";
     private long mExitTime = 0;//记录按键时间，用于双击退出。
-    private final String[] toResponse = new String[10];
     private List<List<ContentItem>> pages = new ArrayList<>();
 
     @Override
@@ -64,8 +48,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        String idListUrl = "http://v3.wufazhuce.com:8000/api/onelist/idlist";
-        queryIdFromServer(idListUrl);
+        initCards();
     }
 
     @Override
@@ -127,8 +110,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_return) {
-            RecyclerView recyclerView = findViewById(R.id.rv_main);
-            recyclerView.scrollToPosition(0);
+            ViewPager viewPager = findViewById(R.id.vp_main);
+            viewPager.setCurrentItem(0);
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -161,182 +144,25 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         return true;
     }
 
-    private void queryIdFromServer(String address) {
-        OkHttpUtil.sendOkHttpRequest(address, new Callback() {
-            @Override
-            public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Log.d(TAG, "queryIDFromServer加载失败");
-                        Toast.makeText(MainActivity.this, "网络加载失败，尝试本地加载", Toast.LENGTH_SHORT).show();
-                        if (LitePal.findFirst(ContentItem.class) != null) {
-                            initData(-1);
-                        }
-                    }
-                });
-            }
+    public void initCards() {
+        Log.d(TAG, "initCards");
 
-            @Override
-            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                if (response.body() != null) {
-                    final String responseText = response.body().string();
-
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-                                JSONObject jsonObject = new JSONObject(responseText);
-                                JSONArray idList = jsonObject.getJSONArray("data");
-
-                                SharedPreferences.Editor editor = getSharedPreferences("idList", MODE_PRIVATE).edit();
-                                for (int i = 0; i < idList.length(); i++) {
-                                    editor.putString("day" + String.valueOf(i), idList.getString(i));
-                                    toResponse[i] = idList.getString(i);
-                                }
-                                editor.apply();
-                                Log.d(TAG, toResponse[0] + "(0)");
-                                if (!toResponse[0].equals("0")) {
-                                    initData(0);
-                                } else {
-                                    Log.d(TAG, "toResponse0没有值");
-                                    Toast.makeText(MainActivity.this, "加载失败", Toast.LENGTH_SHORT).show();
-                                }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    });
-                } else {
-                    Log.d(TAG, "queryIDFromServer的response为空");
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(MainActivity.this, "加载失败", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }
-            }
-        });
-    }
-
-    private void queryDataFromServer(String address) {
-        OkHttpUtil.sendOkHttpRequest(address, new Callback() {
-            @Override
-            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                if (response.body() != null) {
-                    String responseText = response.body().string();
-                    ContentItemBean contentList = new Gson().fromJson(responseText, ContentItemBean.class);
-                    LitePal.deleteAll(ContentItem.class);
-                    SaveDataToLitePal.SaveToContentList(contentList);
-                    final String idListId = contentList.getData().getId();
-
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            List<ContentItem> contentItems = LitePal
-                                    .where("idListId = ?", idListId)
-                                    .find(ContentItem.class);
-                            pages.add(contentItems);
-                            if (pages.size() != 0) {
-                                initData(pages.size());
-                            } else {
-                                Log.d(TAG, "queryDataFromServer获取content为空");
-                                Toast.makeText(MainActivity.this, "加载失败", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
-                } else {
-                    Log.d(TAG, "queryDataFromServer的response为空");
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(MainActivity.this, "加载失败", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }
-            }
-
-            @Override
-            public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Log.d(TAG, "queryDataFromServer加载失败");
-                        Toast.makeText(MainActivity.this, "网络加载失败，尝试本地加载", Toast.LENGTH_SHORT).show();
-                        if (LitePal.findFirst(ContentItem.class) != null) {
-                            initData(-1);
-                        }
-                    }
-                });
-            }
-        });
-    }
-
-    private void loadDbContentMain() {
         SharedPreferences sharedPreferences = getSharedPreferences("idList", MODE_PRIVATE);
-        //没有网络，一次加载完。
         for (int i = 0; i < 10; i++) {
-            String idTheDay = sharedPreferences.getString("day" + i, "0");
-            if (!idTheDay.equals("0")) {
-                List<ContentItem> contentItems = LitePal
-                        .where("idListId = ?", idTheDay)
-                        .find(ContentItem.class);
-                pages.add(contentItems);
-            }
-            if (pages != null) {
-                initCards(0);
-            } else {
-                Log.d(TAG, "loadDbContentMain获取content为空");
-                Toast.makeText(MainActivity.this, "本地加载也失败了(っ °Д °;)っ", Toast.LENGTH_SHORT).show();
-            }
+            String idListId = sharedPreferences.getString("day" + i, "0");
+            Log.d(TAG, "initCards: "+idListId);
+            List<ContentItem> contentItems = LitePal
+                    .where("idListId = ?", idListId)
+                    .find(ContentItem.class);
+            pages.add(contentItems);
         }
-    }
-
-    public void initCards(int i) {
-        RecyclerView recyclerView = findViewById(R.id.rv_main);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        final MainPageAdapter adapter = new MainPageAdapter(pages, this);
-        if (i == 0) {
-            layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-            recyclerView.setLayoutManager(layoutManager);
-            recyclerView.setHasFixedSize(false);
-            recyclerView.setAdapter(adapter);
-            PagerSnapHelper snapHelper = new PagerSnapHelper();
-            recyclerView.setOnFlingListener(null);
-            snapHelper.attachToRecyclerView(recyclerView);
-
-            recyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener() {
-                @Override
-                public void onLoadMore() {
-                    adapter.notifyDataSetChanged();
-                    if (pages.size() == 5)
-                        queryDataFromServer("http://v3.wufazhuce.com:8000/api/onelist/" + toResponse[5] + "/0");
-                    else
-                        adapter.notifyDataSetChanged();
-                }
-            });
+        if (pages != null) {
+            Log.d(TAG, "initCards: "+pages);
+            ViewPager vp = findViewById(R.id.vp_main);
+            vp.setAdapter(new MainViewPagerAdapter(MainActivity.this, pages));
         } else {
-            adapter.notifyDataSetChanged();
-        }
-    }
-
-    public void initData(int i) {
-        switch (i) {
-            case -1:
-                loadDbContentMain();
-                break;
-            case 0:
-                queryDataFromServer("http://v3.wufazhuce.com:8000/api/onelist/" + toResponse[0] + "/0");
-                break;
-            case 5:
-                initCards(0);
-                break;
-            case 10:
-                initCards(1);
-                break;
-            default:
-                queryDataFromServer("http://v3.wufazhuce.com:8000/api/onelist/" + toResponse[i] + "/0");
+            Log.d(TAG, "initCards: pages没有内容。");
+            Toast.makeText(MainActivity.this, "加载失败", Toast.LENGTH_SHORT).show();
         }
     }
 

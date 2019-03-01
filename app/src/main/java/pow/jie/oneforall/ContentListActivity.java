@@ -112,6 +112,7 @@ public class ContentListActivity extends BaseActivity {
                 @Override
                 public void onLoadMore() {
                     int id = contentItems.get(contentItems.size() - 1).getIdListId();
+                    Log.d(TAG, "onLoadMore: "+id);
                     String readingListUrl = "http://v3.wufazhuce.com:8000/api/channel/reading/more/" + id;
                     adapter.setLoadState(0);
                     queryFromServer(readingListUrl);
@@ -123,7 +124,7 @@ public class ContentListActivity extends BaseActivity {
     }
 
     public void readBean(ContentListBean bean) {
-        List<ContentListBean.DataBean> list =bean.getData();
+        List<ContentListBean.DataBean> list = bean.getData();
         for (int i = 0; i < 10; i++) {
             ContentItem contentItem = new ContentItem();
 
