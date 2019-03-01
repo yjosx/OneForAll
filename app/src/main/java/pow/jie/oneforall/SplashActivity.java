@@ -69,20 +69,28 @@ public class SplashActivity extends BaseActivity {
                             try {
                                 JSONObject jsonObject = new JSONObject(responseText);
                                 JSONArray idList = jsonObject.getJSONArray("data");
+                                SharedPreferences preferences = getSharedPreferences("idList", MODE_PRIVATE);
+                                String idListId=idList.getString(0);
 
-                                SharedPreferences.Editor editor = getSharedPreferences("idList", MODE_PRIVATE).edit();
-                                for (int i = 0; i < idList.length(); i++) {
-                                    editor.putString("day" + String.valueOf(i), idList.getString(i));
-                                    toResponse[i] = idList.getString(i);
-                                }
-                                editor.apply();
-                                Log.d(TAG, toResponse[0] + "(0)");
-                                if (!toResponse[0].equals("0")) {
-                                    initData(timesFlag);
-                                    Log.d(TAG, "queryId" + timesFlag);
+                                if (!preferences.getString("day" + 0, "0").equals(idList.getString(0))
+                                        ||LitePal.where("idListId = ?", idListId).find(ContentItem.class)==null) {
+                                    //如果今天的id值和本地的一样，并且数据库有数据，就不网络请求。
+                                    SharedPreferences.Editor editor = getSharedPreferences("idList", MODE_PRIVATE).edit();
+                                    for (int i = 0; i < idList.length(); i++) {
+                                        editor.putString("day" + String.valueOf(i), idList.getString(i));
+                                        toResponse[i] = idList.getString(i);
+                                    }
+                                    editor.apply();
+                                    Log.d(TAG, toResponse[0] + "(0)");
+                                    if (!toResponse[0].equals("0")) {
+                                        initData(timesFlag);
+                                        Log.d(TAG, "queryId" + timesFlag);
+                                    } else {
+                                        Log.d(TAG, "toResponse0没有值");
+                                        Toast.makeText(SplashActivity.this, "加载失败", Toast.LENGTH_SHORT).show();
+                                    }
                                 } else {
-                                    Log.d(TAG, "toResponse0没有值");
-                                    Toast.makeText(SplashActivity.this, "加载失败", Toast.LENGTH_SHORT).show();
+                                    initData(-1);
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -146,6 +154,7 @@ public class SplashActivity extends BaseActivity {
                 startActivity(intent);
                 break;
             case 0:
+                LitePal.deleteAll(ContentItem.class);
                 queryDataFromServer("http://v3.wufazhuce.com:8000/api/onelist/" + toResponse[0] + "/0");
                 break;
             default:
