@@ -4,12 +4,15 @@ one一个是一个文艺应用软件，其中的文章都很小清新，应该�
 
 ## 0x01 实现功能
 <img src="https://github.com/yjosx/OneForAll/blob/master/screenshoots/Screenshot_1550974397.png" alt="main"  width="350">
+
 - 主页是每日更新的阅读
 
 <img src="https://github.com/yjosx/OneForAll/blob/master/screenshoots/Screenshot_1550974500.png" alt="navigation"  width="350">
+
 - 侧滑栏
 
 <img src="https://github.com/yjosx/OneForAll/blob/master/screenshoots/Screenshot_1550974514.png" alt="reading"  width="350">
+
 - 阅读
 
 ## 0x02 动图演示
@@ -24,8 +27,7 @@ one一个是一个文艺应用软件，其中的文章都很小清新，应该�
 
 ### 主页
 
-主页由recyclerView嵌套cardView实现，并在外层再嵌套了一层横向的recyclerView实现了翻页。
-（！！值得注意的是，这里的滑动可能上下和左右有点冲突，这将在下一个版本解决。）
+主页由recyclerView嵌套cardView实现，并在外层再嵌套了一层viewPager实现了翻页。
 
 同时在menu中加入了回到今日主页的功能。
 
@@ -36,8 +38,11 @@ one一个是一个文艺应用软件，其中的文章都很小清新，应该�
 侧滑栏中包含了“阅读”和“关于”的按键，
 
 - “关于”只是一个简单的弹出窗口，以后应该会改成一个页面。
+
 - 而“阅读”复用了主页的界面，但其中的recyclerView可以无限下滑，向下加载。
+
   （！！阅读的api目前似乎已不再更新，但功能是支持的。）
+
   （尝试以抓包的方式获取新的api，目前没有成功）
 
 ### 其他功能
@@ -49,10 +54,12 @@ one一个是一个文艺应用软件，其中的文章都很小清新，应该�
 ## 0x04 致谢开源库
 
 {
+
 - 由litepal提供数据库支持
 - 由glide提供图片显示
 - 由okhttp提供网络请求
 - 由gson提供json解析
+
 }
 
 ## 0x05 小感受
@@ -66,9 +73,9 @@ o(*￣︶￣*)o，，，
 ## 0x06 更新
 
 - 0.2
-    增加启动页
-    使用viewPager替代横向recyclerView
-    修复bug
+    1.增加启动页
+    2.使用viewPager替代横向recyclerView
+    3.修复bug
 
 - 0.1.1
     更新部分名称表述
