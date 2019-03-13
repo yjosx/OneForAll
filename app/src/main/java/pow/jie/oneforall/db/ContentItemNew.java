@@ -1,10 +1,27 @@
 package pow.jie.oneforall.db;
 
-import org.litepal.crud.LitePalSupport;
+import io.realm.RealmList;
+import io.realm.RealmObject;
 
-import java.util.List;
+public class ContentItemNew extends RealmObject {
 
-public class ContentItem extends LitePalSupport {
+    private int idListId;
+    private int volumeNum;
+    private int likeCount;
+    private boolean isLiked;
+    private String itemId;
+    private String category;
+    private String title;//作品标题
+    private String tagTitle;//栏目标题
+    private String content;
+    private String forward;
+    private String url;
+    private String volume;
+    private String author;
+    private String authorPicUrl;
+    private String date;
+    private RealmList<String> serialList;
+
     public int getVolumeNum() {
         return volumeNum;
     }
@@ -93,14 +110,6 @@ public class ContentItem extends LitePalSupport {
         this.authorPicUrl = authorPicUrl;
     }
 
-    public List<String> getSerialList() {
-        return serialList;
-    }
-
-    public void setSerialList(List<String> serialList) {
-        this.serialList = serialList;
-    }
-
     public int getIdListId() {
         return idListId;
     }
@@ -133,21 +142,12 @@ public class ContentItem extends LitePalSupport {
         isLiked = liked;
     }
 
-    private int idListId;
-    private int volumeNum;
-    private int likeCount;
-    private boolean isLiked;
-    private String itemId;
-    private String category;
-    private String title;//作品标题
-    private String tagTitle;//栏目标题
-    private String content;
-    private String forward;
-    private String url;
-    private String volume;
-    private String author;
-    private String authorPicUrl;
-    private String date;
-    private List<String> serialList;
+    public RealmList<String> getSerialList() {
+        return serialList;
+    }
+
+    public void setSerialList(RealmList<String> serialList) {
+        this.serialList = serialList;
+    }
 
 }

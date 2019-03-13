@@ -42,18 +42,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:textColor="#000"
                 android:textSize="24sp" />
 
             <TextView
                 android:id="@+id/tv_content_activity_author"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:paddingStart="8dp"
+                android:paddingEnd="0dp"/>
 
             <TextView
                 android:id="@+id/tv_content"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="5dp"
+                android:paddingStart="24dp"
+                android:paddingEnd="24dp"
+                android:textColor="#000"
                 android:textSize="20sp" />
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>

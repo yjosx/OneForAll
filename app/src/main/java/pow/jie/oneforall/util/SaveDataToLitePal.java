@@ -6,15 +6,8 @@ import org.litepal.LitePal;
 
 import java.util.List;
 
-import pow.jie.oneforall.MainActivity;
 import pow.jie.oneforall.db.ContentItem;
-import pow.jie.oneforall.db.Essay;
-import pow.jie.oneforall.db.Question;
-import pow.jie.oneforall.db.SerialContent;
 import pow.jie.oneforall.databean.ContentItemBean;
-import pow.jie.oneforall.databean.EssayBean;
-import pow.jie.oneforall.databean.QuestionBean;
-import pow.jie.oneforall.databean.SerialContentBean;
 
 public class SaveDataToLitePal {
     public static void SaveToContentList(ContentItemBean contentItemBean) {
@@ -27,9 +20,10 @@ public class SaveDataToLitePal {
             if (!list.get(i).getCategory().equals("6")) {
                 ContentItem contentItem = new ContentItem();
 
+                contentItem.setDate(contentItemBean.getData().getDate());
                 contentItem.setItemId(list.get(i).getItem_id());
                 contentItem.setCategory(list.get(i).getCategory());
-
+                contentItem.setLikeCount(list.get(i).getLike_count());
                 contentItem.setForward(list.get(i).getForward());
                 contentItem.setUrl(list.get(i).getImg_url());
                 contentItem.setContent(list.get(i).getContent_id());
@@ -91,29 +85,4 @@ public class SaveDataToLitePal {
         LitePal.deleteAll(ContentItem.class, "volumeNum < ?", String.valueOf(lastVol));
     }
 
-    public static void SaveToEssay(EssayBean essayBean) {
-        Essay essay = new Essay();
-        essay.setTitle(essayBean.getData().getHp_title());
-        essay.setAuthorAuth(essayBean.getData().getAuth_it());
-        essay.setAuthor(essayBean.getData().getHp_author());
-        essay.setGuideWord(essayBean.getData().getGuide_word());
-        essay.setContent(essayBean.getData().getHp_content());
-        essay.save();
-    }
-
-    public void SaveToQuestion(QuestionBean questionBean) {
-        Question question = new Question();
-        question.setQuestionTitle(questionBean.getData().getQuestion_title());
-        question.setQuestionContent(questionBean.getData().getQuestion_content());
-        question.setAnswerContent(questionBean.getData().getAnswer_content());
-        question.save();
-    }
-
-    public void SaveToSerialContent(SerialContentBean serialContentBean) {
-        SerialContent serialContent = new SerialContent();
-        serialContent.setNumber(serialContentBean.getData().getNumber());
-        serialContent.setTitle(serialContentBean.getData().getTitle());
-        serialContent.setContent(serialContentBean.getData().getContent());
-        serialContent.save();
-    }
 }

@@ -2,4 +2,10 @@
     <string name="app_name">One For All</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="id_list_url">http://v3.wufazhuce.com:8000/api/onelist/idlist</string>
+    <string name="one_list_url">http://v3.wufazhuce.com:8000/api/onelist/</string>
+    <string name="essay_url">http://v3.wufazhuce.com:8000/api/essay/</string>
+    <string name="serial_url">http://v3.wufazhuce.com:8000/api/serialcontent/</string>
+    <string name="question_url">http://v3.wufazhuce.com:8000/api/question/</string>
+    <string name="reading_url">http://v3.wufazhuce.com:8000/api/channel/reading/more/</string>
 </resources>

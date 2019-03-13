@@ -49,21 +49,18 @@ public class ContentListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     .inflate(R.layout.card_main, viewGroup, false);
             final RecyclerViewHolder holder = new RecyclerViewHolder(view);
 
-            holder.cardView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int position = holder.getAdapterPosition();
-                    ContentItem contentItem = mContentItem.get(position);
-                    switch (contentItem.getCategory()) {
-                        case "1":
-                        case "2":
-                        case "3":
-                            Intent intent = new Intent(mContext, ContentActivity.class);
-                            intent.putExtra("Category", contentItem.getCategory());
-                            intent.putExtra("ContentItemId", contentItem.getItemId());
-                            mContext.startActivity(intent);
-                            break;
-                    }
+            holder.cardView.setOnClickListener(v -> {
+                int position = holder.getAdapterPosition();
+                ContentItem contentItem = mContentItem.get(position);
+                switch (contentItem.getCategory()) {
+                    case "1":
+                    case "2":
+                    case "3":
+                        Intent intent = new Intent(mContext, ContentActivity.class);
+                        intent.putExtra("Category", contentItem.getCategory());
+                        intent.putExtra("ContentItemId", contentItem.getItemId());
+                        mContext.startActivity(intent);
+                        break;
                 }
             });
             return holder;
@@ -80,6 +77,8 @@ public class ContentListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             recyclerViewHolder.tvTitle.setText(contentItem.getTitle());
             recyclerViewHolder.guideWord.setText(contentItem.getForward());
             recyclerViewHolder.author.setText(contentItem.getAuthor());
+            recyclerViewHolder.date.setText(contentItem.getDate());
+            recyclerViewHolder.likeCount.setText(String.valueOf(contentItem.getLikeCount()));
             Glide.with(mContext).load(contentItem.getUrl()).into(recyclerViewHolder.imageView);
         } else if (viewHolder instanceof FootViewHolder) {
             FootViewHolder footViewHolder = (FootViewHolder) viewHolder;
@@ -124,19 +123,25 @@ public class ContentListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     static class RecyclerViewHolder extends RecyclerView.ViewHolder {
         CardView cardView;
         ImageView imageView;
+        ImageView imageLike;
         TextView tvCardTitle;
         TextView tvTitle;
         TextView author;
         TextView guideWord;
+        TextView date;
+        TextView likeCount;
 
         RecyclerViewHolder(View view) {
             super(view);
             cardView = (CardView) view;
             imageView = view.findViewById(R.id.iv_card_main);
+            imageLike = view.findViewById(R.id.iv_like);
             tvCardTitle = view.findViewById(R.id.tv_card_title);
             tvTitle = view.findViewById(R.id.tv_card_content_title);
             author = view.findViewById(R.id.tv_card_author);
             guideWord = view.findViewById(R.id.tv_card_guide_word);
+            date = view.findViewById(R.id.tv_card_date);
+            likeCount = view.findViewById(R.id.tv_like_count);
 
         }
     }
