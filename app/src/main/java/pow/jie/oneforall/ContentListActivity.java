@@ -1,16 +1,16 @@
 package pow.jie.oneforall;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.view.ViewPager;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.ActionBar;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.gson.Gson;
 
@@ -24,7 +24,7 @@ import okhttp3.Response;
 import pow.jie.oneforall.adapter.ContentListAdapter;
 import pow.jie.oneforall.db.ContentItem;
 import pow.jie.oneforall.databean.ContentListBean;
-import pow.jie.oneforall.util.BaseActivity;
+import pow.jie.oneforall.base.BaseActivity;
 import pow.jie.oneforall.util.EndlessRecyclerOnScrollListener;
 import pow.jie.oneforall.util.OkHttpUtil;
 

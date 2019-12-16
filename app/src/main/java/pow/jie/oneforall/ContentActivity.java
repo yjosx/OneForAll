@@ -2,15 +2,16 @@ package pow.jie.oneforall;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v7.app.ActionBar;
-import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.widget.Toolbar;
 
 import com.google.gson.Gson;
 
@@ -24,7 +25,7 @@ import okhttp3.Response;
 import pow.jie.oneforall.databean.EssayBean;
 import pow.jie.oneforall.databean.QuestionBean;
 import pow.jie.oneforall.databean.SerialContentBean;
-import pow.jie.oneforall.util.BaseActivity;
+import pow.jie.oneforall.base.BaseActivity;
 import pow.jie.oneforall.util.OkHttpUtil;
 
 public class ContentActivity extends BaseActivity {

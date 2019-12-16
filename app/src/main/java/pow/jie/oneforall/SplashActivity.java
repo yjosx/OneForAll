@@ -2,10 +2,11 @@ package pow.jie.oneforall;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.annotation.NonNull;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 
 import com.google.gson.Gson;
 
@@ -21,7 +22,7 @@ import okhttp3.Callback;
 import okhttp3.Response;
 import pow.jie.oneforall.databean.ContentItemBean;
 import pow.jie.oneforall.db.ContentItem;
-import pow.jie.oneforall.util.BaseActivity;
+import pow.jie.oneforall.base.BaseActivity;
 import pow.jie.oneforall.util.OkHttpUtil;
 import pow.jie.oneforall.util.SaveDataToLitePal;
 
